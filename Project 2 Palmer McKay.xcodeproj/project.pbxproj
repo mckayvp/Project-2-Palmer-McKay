@@ -54,14 +54,46 @@
 		E5896D35216EE4CA00B1D832 /* Project 2 Palmer McKay */ = {
 			isa = PBXGroup;
 			children = (
-				E5896D36216EE4CA00B1D832 /* AppDelegate.swift */,
+				E5896D4B216EE50400B1D832 /* Supporting Files */,
+				E5896D4A216EE4FD00B1D832 /* Model */,
+				E5896D49216EE4F500B1D832 /* View */,
+				E5896D48216EE4E900B1D832 /* Controller */,
+			);
+			path = "Project 2 Palmer McKay";
+			sourceTree = "<group>";
+		};
+		E5896D48216EE4E900B1D832 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
 				E5896D38216EE4CA00B1D832 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E5896D49216EE4F500B1D832 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				E5896D3A216EE4CA00B1D832 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E5896D4A216EE4FD00B1D832 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E5896D4B216EE50400B1D832 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E5896D36216EE4CA00B1D832 /* AppDelegate.swift */,
 				E5896D3D216EE4CC00B1D832 /* Assets.xcassets */,
 				E5896D3F216EE4CC00B1D832 /* LaunchScreen.storyboard */,
 				E5896D42216EE4CC00B1D832 /* Info.plist */,
 			);
-			path = "Project 2 Palmer McKay";
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
