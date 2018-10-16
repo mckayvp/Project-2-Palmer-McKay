@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Project 2 Palmer McKay.xcodeproj">
+      location = "group:../Project 2 Assets/Temple Photos">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

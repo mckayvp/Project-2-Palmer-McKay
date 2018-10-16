@@ -8,6 +8,6 @@
 
 import UIKit
 
-class TempleCell : UICollectionViewCell {
+class TempleCardCell : UICollectionViewCell {
     
 }

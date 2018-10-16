@@ -39,7 +39,19 @@
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iie-sL-OYd" customClass="TempleCardView" customModule="Project_2_Palmer_McKay" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="iie-sL-OYd" secondAttribute="trailing" id="8YJ-0M-jzI"/>
+                                            <constraint firstItem="iie-sL-OYd" firstAttribute="leading" secondItem="bKX-k6-Whb" secondAttribute="leading" id="WhF-1j-t2S"/>
+                                            <constraint firstItem="iie-sL-OYd" firstAttribute="top" secondItem="bKX-k6-Whb" secondAttribute="top" id="Zle-2U-QuP"/>
+                                            <constraint firstAttribute="bottom" secondItem="iie-sL-OYd" secondAttribute="bottom" id="z93-md-7eg"/>
+                                        </constraints>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
