@@ -33,7 +33,7 @@
                                     <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TempleCell" id="bKX-k6-Whb" customClass="TempleCell" customModule="Project_2_Palmer_McKay" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TempleCell" id="bKX-k6-Whb" customClass="TempleCardCell" customModule="Project_2_Palmer_McKay" customModuleProvider="target">
                                         <rect key="frame" x="10" y="10" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -52,11 +52,14 @@
                                             <constraint firstItem="iie-sL-OYd" firstAttribute="top" secondItem="bKX-k6-Whb" secondAttribute="top" id="Zle-2U-QuP"/>
                                             <constraint firstAttribute="bottom" secondItem="iie-sL-OYd" secondAttribute="bottom" id="z93-md-7eg"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="templeCardView" destination="iie-sL-OYd" id="ojL-bG-IYc"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="N4W-52-FhI"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="9bd-4z-MDd"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="41i-vn-Ira"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ELS-gp-OaJ"/>
                                 </connections>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FKG-rc-aTF">

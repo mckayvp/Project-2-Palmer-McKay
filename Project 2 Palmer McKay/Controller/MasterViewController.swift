@@ -16,33 +16,47 @@ class MasterViewController: UIViewController {
         static let TempleCellIdentifier = "TempleCell"
     }
     
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        // Do any additional setup after loading the view, typically from a nib.
-//    }
+    // MARK: - Properties
+    private var cards = TempleDeck()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        let image = UIImage(named: "aba-nigeria-temple-lds-273999-mobile.jpg")
+        print(image as Any)
+    }
 }
 
 
 // MARK: - Collection View Data Source 
 
-//extension MasterViewController : UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        // Code here. Fix return
-//        return 5
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        // Code here. Fix return
-//        return 5
-//    }
-
-//}
+extension MasterViewController : UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.TempleCellIdentifier,
+                                                      for: indexPath)
+        
+        if let templeCell = cell as? TempleCardCell {
+            templeCell.templeCardView.card = cards[indexPath.row]
+            templeCell.templeCardView.setNeedsDisplay()
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cards.count
+    }
+}
 
 // MARK: - Collection View Delegate
 
 extension MasterViewController : UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath:
-        IndexPath) {
-//        performSegue(withIdentifier: Storyboard.Temple, sender: indexPath)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let templeCardCell = collectionView.cellForItem(at: indexPath) as? TempleCardCell {
+            print(cards[indexPath.row])
+            print(templeCardCell)
+        }
     }
 }
+
