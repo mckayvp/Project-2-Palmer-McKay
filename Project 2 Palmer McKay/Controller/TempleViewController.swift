@@ -20,27 +20,32 @@ class TempleViewController: UIViewController {
     // MARK: - Properties
     private var cards = TempleDeck()
     
-    // MARK: - Shared Singleton
-    class State {
-//        static var isStudyMode = true
-        static var correctGuesses = 0
-        static var totalGuesses = 0
-    }
+    private var correctGuesses = 0
+    private var incorrectGuesses = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        tableViewWidth.constant = 0
+        tableViewWidth.constant = appView.bounds.width / 4
+        toggleViewBtnLabel.title = "Study"
         cards.shuffle()
     }
     
     // MARK: - Outlets
-    
+    @IBOutlet weak var appView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableViewWidth: NSLayoutConstraint!
     @IBOutlet weak var toggleViewBtnLabel: UIBarButtonItem!
+    @IBOutlet weak var correctTotal: UILabel!
+    @IBOutlet weak var incorrectTotal: UILabel!
+    @IBOutlet weak var scoreTotal: UILabel!
+    @IBOutlet weak var barView: UIView!
     
     // MARK: - Actions
+    
+    @IBAction func resetGame(_ sender: UIButton) {
+    }
     
     @IBAction func toggleViewBtn(_ sender: UIBarButtonItem) {
 //        collectionView.reloadData()
@@ -50,10 +55,12 @@ class TempleViewController: UIViewController {
             tableViewWidth.constant = 0
             toggleViewBtnLabel.title = "Play"
             setGameMode(true)
+            barView.isHidden = true
         } else {
             tableViewWidth.constant = collectionView.bounds.width / 4
             toggleViewBtnLabel.title = "Study"
             setGameMode(false)
+            barView.isHidden = false
         }
         
         UIView.animate(withDuration: 1.0,
@@ -101,11 +108,11 @@ extension TempleViewController : UICollectionViewDataSource {
 
 extension TempleViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if let templeCardCell = collectionView.cellForItem(at: indexPath) as? TempleCardCell {
-//            print(cards[indexPath.row])
+        if (collectionView.cellForItem(at: indexPath) as? TempleCardCell) != nil {
+            print(cards[indexPath.row].name)
 //            print(templeCardCell)
-//        }
-//        Do I need this?∫
+        }
+
     }
 }
 
