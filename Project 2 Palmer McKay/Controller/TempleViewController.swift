@@ -79,9 +79,9 @@ extension TempleViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TempleTableIdentifier,
                                                  for: indexPath)
         
-        cell.textLabel?.text =  """
-                                \(cards[indexPath.row].name)
-                                """
+        cell.textLabel?.text =  cards[indexPath.row].title
+        cell.detailTextLabel?.text = cards[indexPath.row].region
+        
         return cell
         
         

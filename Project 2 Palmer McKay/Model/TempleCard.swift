@@ -13,14 +13,18 @@ struct TempleCard {
     // MARK: - Properties
     var filename: String = ""
     var name: String = ""
+    var title: String = ""
+    var region: String = ""
     
     // MARK: - Init
     init() {
         // By default this builds a Temple Card
     }
     
-    init(filename: String, name: String) {
+    init(filename: String, name: String, title: String, region: String) {
         self.filename = filename
         self.name = name
+        self.title = title
+        self.region = region
     }
 }
