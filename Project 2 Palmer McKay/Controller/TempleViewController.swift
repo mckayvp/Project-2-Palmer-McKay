@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MasterViewController: UIViewController {
+class TempleViewController: UIViewController {
     
     // MARK: - Constants
     
@@ -30,7 +30,7 @@ class MasterViewController: UIViewController {
 
 // MARK: - Collection View Data Source 
 
-extension MasterViewController : UICollectionViewDataSource {
+extension TempleViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.TempleCellIdentifier,
@@ -51,7 +51,7 @@ extension MasterViewController : UICollectionViewDataSource {
 
 // MARK: - Collection View Delegate
 
-extension MasterViewController : UICollectionViewDelegate {
+extension TempleViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let templeCardCell = collectionView.cellForItem(at: indexPath) as? TempleCardCell {
             print(cards[indexPath.row])

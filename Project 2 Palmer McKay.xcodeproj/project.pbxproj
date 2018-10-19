@@ -12,7 +12,7 @@
 		E5896D3E216EE4CC00B1D832 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5896D3D216EE4CC00B1D832 /* Assets.xcassets */; };
 		E5896D41216EE4CC00B1D832 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5896D3F216EE4CC00B1D832 /* LaunchScreen.storyboard */; };
 		E5896D4D216FBE2E00B1D832 /* TempleCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5896D4C216FBE2E00B1D832 /* TempleCardCell.swift */; };
-		E5896D4F216FBF3C00B1D832 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5896D4E216FBF3C00B1D832 /* MasterViewController.swift */; };
+		E5896D4F216FBF3C00B1D832 /* TempleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5896D4E216FBF3C00B1D832 /* TempleViewController.swift */; };
 		E5896D51216FC5EF00B1D832 /* TempleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5896D50216FC5EF00B1D832 /* TempleCard.swift */; };
 		E5896D53216FC68100B1D832 /* TempleDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5896D52216FC68100B1D832 /* TempleDeck.swift */; };
 		E5D4E20721765A1C00E08ADC /* TempleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4E20621765A1C00E08ADC /* TempleCardView.swift */; };
@@ -26,7 +26,7 @@
 		E5896D40216EE4CC00B1D832 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5896D42216EE4CC00B1D832 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5896D4C216FBE2E00B1D832 /* TempleCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempleCardCell.swift; sourceTree = "<group>"; };
-		E5896D4E216FBF3C00B1D832 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		E5896D4E216FBF3C00B1D832 /* TempleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempleViewController.swift; sourceTree = "<group>"; };
 		E5896D50216FC5EF00B1D832 /* TempleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempleCard.swift; sourceTree = "<group>"; };
 		E5896D52216FC68100B1D832 /* TempleDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempleDeck.swift; sourceTree = "<group>"; };
 		E5D4E20621765A1C00E08ADC /* TempleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempleCardView.swift; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		E5896D48216EE4E900B1D832 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E5896D4E216FBF3C00B1D832 /* MasterViewController.swift */,
+				E5896D4E216FBF3C00B1D832 /* TempleViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -189,7 +189,7 @@
 			files = (
 				E5896D53216FC68100B1D832 /* TempleDeck.swift in Sources */,
 				E5896D51216FC5EF00B1D832 /* TempleCard.swift in Sources */,
-				E5896D4F216FBF3C00B1D832 /* MasterViewController.swift in Sources */,
+				E5896D4F216FBF3C00B1D832 /* TempleViewController.swift in Sources */,
 				E5896D4D216FBE2E00B1D832 /* TempleCardCell.swift in Sources */,
 				E5896D37216EE4CA00B1D832 /* AppDelegate.swift in Sources */,
 				E5D4E20721765A1C00E08ADC /* TempleCardView.swift in Sources */,
