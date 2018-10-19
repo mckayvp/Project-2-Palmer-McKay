@@ -1,5 +1,5 @@
 //
-//  TempleCell.swift
+//  TempleCardCell.swift
 //  Project 2 Palmer McKay
 //
 //  Created by McKay Palmer on 10/11/18.

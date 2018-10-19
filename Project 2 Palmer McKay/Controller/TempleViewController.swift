@@ -14,6 +14,7 @@ class TempleViewController: UIViewController {
     
     private struct Storyboard {
         static let TempleCellIdentifier = "TempleCardCell"
+        static let TempleTableIdentifier = "TempleTableCell"
     }
     
     // MARK: - Properties
@@ -53,10 +54,47 @@ extension TempleViewController : UICollectionViewDataSource {
 
 extension TempleViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let templeCardCell = collectionView.cellForItem(at: indexPath) as? TempleCardCell {
-            print(cards[indexPath.row])
-            print(templeCardCell)
-        }
+//        if let templeCardCell = collectionView.cellForItem(at: indexPath) as? TempleCardCell {
+//            print(cards[indexPath.row])
+//            print(templeCardCell)
+//        }
+//        Do I need this?∫
     }
 }
 
+// MARK: - Temple Cell fixed height, dynamic width
+
+//extension TempleViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView,
+//                        layout collectionViewLayout: UICollectionViewLayout,
+//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        //Code here
+//    }
+//}
+
+// MARK: - Table View Data Source
+
+extension TempleViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TempleTableIdentifier,
+                                                 for: indexPath)
+        
+        cell.textLabel?.text =  """
+                                \(cards[indexPath.row].name)
+                                """
+        return cell
+        
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cards.count
+    }
+
+}
+
+// MARK: - Table View Delegate
+
+extension TempleViewController: UITableViewDelegate {
+//    Do I need?
+}
