@@ -17,6 +17,7 @@ class TempleCardView: UIView {
     
     // MARK: - Computed Properties
     var cornerRadius: CGFloat { return bounds.width * 0.05 }
+    var centerImageMargin: CGFloat { return bounds.width * 0.15 }
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -42,9 +43,28 @@ class TempleCardView: UIView {
     // MARK: - Drawing
     override func draw(_ rect: CGRect) {
         drawBaseCard()
+        drawTempleImage()
     }
     
     private func drawBaseCard() {
+        let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         
+        roundedRect.addClip()
+        UIColor.white.setFill()
+        UIRectFill(bounds)
+    }
+    
+    private func drawTempleImage() {
+        guard let templeImage = UIImage(named: card.filename) else {
+            return
+        }
+        
+        let width = bounds.width - 2 * centerImageMargin
+        let templeImageRect = CGRect(x: centerImageMargin,
+                                     y: (bounds.height - width) / 2,
+                                     width: width,
+                                     height: width)
+        
+        templeImage.draw(in: templeImageRect)
     }
 }

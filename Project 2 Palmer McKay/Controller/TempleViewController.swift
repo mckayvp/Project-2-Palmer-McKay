@@ -13,7 +13,7 @@ class TempleViewController: UIViewController {
     // MARK: - Constants
     
     private struct Storyboard {
-        static let TempleCellIdentifier = "TempleCell"
+        static let TempleCellIdentifier = "TempleCardCell"
     }
     
     // MARK: - Properties
@@ -22,8 +22,8 @@ class TempleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let image = UIImage(named: "aba-nigeria-temple-lds-273999-mobile.jpg")
-        print(image as Any)
+//        let image = UIImage(named: "aba-nigeria-temple-lds-273999-mobile.jpg")
+//        print(image as Any)
     }
 }
 
