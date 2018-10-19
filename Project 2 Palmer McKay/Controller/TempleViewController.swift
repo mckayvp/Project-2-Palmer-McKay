@@ -23,8 +23,7 @@ class TempleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//        let image = UIImage(named: "aba-nigeria-temple-lds-273999-mobile.jpg")
-//        print(image as Any)
+        cards.shuffle()
     }
 }
 

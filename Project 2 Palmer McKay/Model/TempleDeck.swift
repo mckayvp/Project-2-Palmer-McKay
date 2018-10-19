@@ -30,8 +30,8 @@ struct TempleDeck {
                                 region: "Australia"));
         cards.append(TempleCard(filename: "calgary-alberta-temple-before-open-house-1033408-mobile.jpg",
                                 name: "Calgary Alberta",
-                                title: "Apia",
-                                region: "Samoa"));
+                                title: "Calgary",
+                                region: "Alberta"));
         cards.append(TempleCard(filename: "cebu-philippines-temple-lds-852837-mobile.jpg",
                                 name: "Cebu City Philippines",
                                 title: "Cebu City",
