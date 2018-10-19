@@ -11,15 +11,29 @@ import UIKit
 @IBDesignable
 class TempleCardView: UIView {
     
+    // MARK: - Constants
+    private struct Card {
+        static let fontName = "Palatino-Bold"
+    }
     
     // MARK: - Properties
     var card = TempleCard()
     
     // MARK: - Computed Properties
     var cornerRadius: CGFloat { return bounds.width * 0.05 }
+    var centerFontSize       : CGFloat { return bounds.width * 0.15 }
     var centerImageMargin: CGFloat { return bounds.width * 0.15 }
     var borderStrokeWidth : CGFloat { return 2.0 }
     var borderMargin : CGFloat { return 4.0 }
+    
+    @IBInspectable var isStudyMode: Bool {
+        get {
+            return card.isStudyMode
+        }
+        set {
+            card.isStudyMode = newValue
+        }
+    }
     
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -47,6 +61,12 @@ class TempleCardView: UIView {
         drawBaseCard()
         drawTempleImage()
         drawTempleBorder()
+        
+        if isStudyMode {
+            drawTempleName()
+        } else {
+           // don't draw temple name
+        }
     }
     
     private func drawBaseCard() {
@@ -91,7 +111,24 @@ class TempleCardView: UIView {
         templeImage.draw(in: templeImageRect)
     }
     
+    private func drawTempleName() {
+        let font = templeCardFont(ofSize: centerFontSize)
+        let templeText = NSAttributedString(string: card.title,
+            attributes: [
+                .font: font,
+                .foregroundColor: UIColor.yellow
+            ])
+        var textBounds = CGRect.zero
+        
+        textBounds.size = templeText.size()
+        textBounds.origin = CGPoint(x: (bounds.width - textBounds.width) / 2,
+                                    y: (bounds.height - textBounds.height) / 1.2)
+        templeText.draw(in: textBounds)
+        
+    }
+    
     // MARK: - Helpers
+    
     private func popContext() {
         UIGraphicsGetCurrentContext()?.restoreGState()
     }
@@ -102,5 +139,13 @@ class TempleCardView: UIView {
         context?.saveGState()
         
         return context
+    }
+    
+    private func templeCardFont(ofSize fontSize: CGFloat) -> UIFont {
+        if let font = UIFont(name: Card.fontName, size: fontSize) {
+            return font
+        }
+        
+        return UIFont.preferredFont(forTextStyle: .body)
     }
 }

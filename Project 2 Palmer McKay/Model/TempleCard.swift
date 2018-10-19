@@ -15,6 +15,7 @@ struct TempleCard {
     var name: String = ""
     var title: String = ""
     var region: String = ""
+    var isStudyMode = true 
     
     // MARK: - Init
     init() {

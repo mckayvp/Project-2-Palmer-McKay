@@ -19,13 +19,19 @@
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UAU-Ej-NmO">
                                 <rect key="frame" x="0.0" y="370" width="736" height="44"/>
+                                <color key="backgroundColor" red="0.65708622271075501" green="0.76583259957538818" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <items>
-                                    <barButtonItem title="Item" id="zle-Us-nnS"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="NLQ-zk-H6M"/>
+                                    <barButtonItem title="Play" id="zle-Us-nnS">
+                                        <connections>
+                                            <action selector="toggleViewBtn:" destination="BYZ-38-t0r" id="8as-7k-Hme"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SzU-VB-xpC">
                                 <rect key="frame" x="0.0" y="0.0" width="566" height="370"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.96184947742318883" green="1" blue="0.94401869456774934" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sLp-Xu-wLj">
                                     <size key="itemSize" width="150" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -115,6 +121,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="SzU-VB-xpC" id="L3t-c7-uLr"/>
+                        <outlet property="tableViewWidth" destination="427-ZK-9Jq" id="OW2-Mj-EWE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

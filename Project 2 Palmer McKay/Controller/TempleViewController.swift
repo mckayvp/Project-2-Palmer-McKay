@@ -20,10 +20,58 @@ class TempleViewController: UIViewController {
     // MARK: - Properties
     private var cards = TempleDeck()
     
+    // MARK: - Shared Singleton
+    class State {
+//        static var isStudyMode = true
+        static var correctGuesses = 0
+        static var totalGuesses = 0
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        tableViewWidth.constant = 0
         cards.shuffle()
+    }
+    
+    // MARK: - Outlets
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var tableViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var toggleViewBtnLabel: UIBarButtonItem!
+    
+    // MARK: - Actions
+    
+    @IBAction func toggleViewBtn(_ sender: UIBarButtonItem) {
+//        collectionView.reloadData()
+        collectionView.layoutIfNeeded()
+        
+        if tableViewWidth.constant > 0 {
+            tableViewWidth.constant = 0
+            toggleViewBtnLabel.title = "Play"
+            setGameMode(true)
+        } else {
+            tableViewWidth.constant = collectionView.bounds.width / 4
+            toggleViewBtnLabel.title = "Study"
+            setGameMode(false)
+        }
+        
+        UIView.animate(withDuration: 1.0,
+                       delay: 0,
+                       options: [.curveEaseIn],
+                       animations: {
+                          self.view.layoutIfNeeded()
+                       })
+      
+    }
+    
+    // MARK: - Helpers
+    
+    private func setGameMode(_ isStudyMode: Bool) {
+        collectionView.reloadData()
+        for i in 0 ..< cards.count {
+            cards[i].isStudyMode = isStudyMode
+        }
     }
 }
 
