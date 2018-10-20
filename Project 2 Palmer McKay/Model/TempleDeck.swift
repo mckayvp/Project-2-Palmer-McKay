@@ -108,6 +108,10 @@ struct TempleDeck {
         return cards.count
     }
     
+    mutating func remove(at index: Int) {
+        cards.remove(at: index)
+    }
+    
     mutating func shuffle() {
         cards.shuffle()
     }

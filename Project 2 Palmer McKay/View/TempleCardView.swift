@@ -13,7 +13,7 @@ class TempleCardView: UIView {
     
     // MARK: - Constants
     private struct Card {
-        static let fontName = "Palatino-Bold"
+        static let fontName = "Copperplate-Light"
     }
     
     // MARK: - Properties
@@ -21,10 +21,10 @@ class TempleCardView: UIView {
     
     // MARK: - Computed Properties
     var cornerRadius: CGFloat { return bounds.width * 0.05 }
-    var centerFontSize       : CGFloat { return bounds.width * 0.15 }
-    var centerImageMargin: CGFloat { return bounds.width * 0.15 }
-    var borderStrokeWidth : CGFloat { return 2.0 }
-    var borderMargin : CGFloat { return 4.0 }
+    var centerFontSize       : CGFloat { return bounds.width * 0.10 }
+    var centerImageMargin: CGFloat { return bounds.width * 0.03 }
+    var borderStrokeWidth : CGFloat { return 5.0 }
+    var borderMargin : CGFloat { return 3.5 }
     
     @IBInspectable var isStudyMode: Bool {
         get {
@@ -83,7 +83,7 @@ class TempleCardView: UIView {
         let square = UIBezierPath()
         let width = bounds.width - 4
         let height = bounds.height - 4
-        let borderColor : UIColor = UIColor.blue
+        let borderColor : UIColor = UIColor.lightGray
         
         _ = pushContext()
         borderColor.setStroke()
@@ -116,7 +116,8 @@ class TempleCardView: UIView {
         let templeText = NSAttributedString(string: card.title,
             attributes: [
                 .font: font,
-                .foregroundColor: UIColor.yellow
+                .foregroundColor: UIColor.black,
+                .backgroundColor: UIColor.init(white: 1.0, alpha: 0.7)
             ])
         var textBounds = CGRect.zero
         
