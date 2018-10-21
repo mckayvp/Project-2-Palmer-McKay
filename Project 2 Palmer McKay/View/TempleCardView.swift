@@ -22,9 +22,10 @@ class TempleCardView: UIView {
     // MARK: - Computed Properties
     var cornerRadius: CGFloat { return bounds.width * 0.05 }
     var centerFontSize       : CGFloat { return bounds.width * 0.10 }
-    var centerImageMargin: CGFloat { return bounds.width * 0.03 }
+    var centerImageMargin: CGFloat { return bounds.width * 0.01 }
     var borderStrokeWidth : CGFloat { return 5.0 }
     var borderMargin : CGFloat { return 3.5 }
+//    var borderMargin : CGFloat { return bounds.width * 0.15 }
     
     @IBInspectable var isStudyMode: Bool {
         get {
@@ -81,15 +82,17 @@ class TempleCardView: UIView {
     
     private func drawTempleBorder() {
         let square = UIBezierPath()
-        let width = bounds.width - 4
+//        let width = bounds.width - 4
+        let width = bounds.width - (2.0 * borderMargin)
         let height = bounds.height - 4
+//        let height = bounds.height - (2.0 * borderMargin)
         let borderColor : UIColor = UIColor.lightGray
         
         _ = pushContext()
         borderColor.setStroke()
         square.lineWidth = borderStrokeWidth
-        square.move(to: CGPoint(x: borderMargin, y: borderMargin))
-        square.addLine(to: CGPoint(x: width, y: borderMargin))
+        square.move(to: CGPoint(x: borderMargin, y: centerImageMargin))
+        square.addLine(to: CGPoint(x: width, y: centerImageMargin))
         square.addLine(to: CGPoint(x: width, y: height))
         square.addLine(to: CGPoint(x: borderMargin, y: height))
         square.close()
@@ -102,11 +105,12 @@ class TempleCardView: UIView {
             return
         }
         
-        let width = bounds.width - 2 * centerImageMargin
+        let width = bounds.width - (2 * centerImageMargin)
+        let height = bounds.height
         let templeImageRect = CGRect(x: centerImageMargin,
-                                     y: (bounds.height - width) / 2,
+                                     y: (bounds.height - width) / 5,
                                      width: width,
-                                     height: width)
+                                     height: height)
         
         templeImage.draw(in: templeImageRect)
     }
