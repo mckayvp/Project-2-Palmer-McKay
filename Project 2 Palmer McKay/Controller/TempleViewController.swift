@@ -17,13 +17,19 @@ class TempleViewController: UIViewController {
         static let TempleTableIdentifier = "TempleTableCell"
     }
     
+    private let alertCorrect = UIAlertController(title: "Correct :)", message: "Keep it up!", preferredStyle: .alert)
+    private let alertIncorrect = UIAlertController(title: "Incorrect :(", message: "Try a different combination", preferredStyle: .alert)
+    
     // MARK: - Properties
     private var cards = TempleDeck()
+    private var originalDeck = TempleDeck()
     
     private var correctGuesses = 0
     private var incorrectGuesses = 0
     private var collectionSelection = "collection"
     private var tableSelection = "table"
+
+    
     
     
     override func viewDidLoad() {
@@ -47,7 +53,13 @@ class TempleViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func resetGame(_ sender: UIButton) {
-//        Code here
+        cards = originalDeck
+//        collectionView.reloadData()
+        correctGuesses = 0
+        incorrectGuesses = 0
+        correctTotal.text = "\(correctGuesses)"
+        incorrectTotal.text = "\(incorrectGuesses)"
+        animate()
     }
     
     @IBAction func toggleViewBtn(_ sender: UIBarButtonItem) {
@@ -66,17 +78,21 @@ class TempleViewController: UIViewController {
             barView.isHidden = false
         }
         
-        UIView.animate(withDuration: 1.0,
-                       delay: 0,
-                       options: [.curveLinear],
-                       animations: {
-                          self.view.layoutIfNeeded()
-                          self.collectionView.reloadData()
-                       })
+        animate()
       
     }
     
     // MARK: - Helpers
+    
+    private func animate() {
+        UIView.animate(withDuration: 1.0,
+                       delay: 0,
+                       options: [.curveLinear],
+                       animations: {
+                        self.view.layoutIfNeeded()
+                        self.collectionView.reloadData()
+        })
+    }
     
     private func setGameMode(_ isStudyMode: Bool) {
         for i in 0 ..< cards.count {
@@ -84,12 +100,36 @@ class TempleViewController: UIViewController {
         }
     }
     
+    private func correctAlert() {
+        // create the alert
+        let alert = UIAlertController(title: "Correct!", message: "Keep it up!", preferredStyle: UIAlertController.Style.alert)
+        
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func incorrectAlert() {
+        // create the alert
+        let alert = UIAlertController(title: "Incorrect", message: "Try a different combination.", preferredStyle: UIAlertController.Style.alert)
+        
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
     private func checkMatch(inCell templeCollectionCell: TempleCardCell, at indexPath: IndexPath) {
         print(">>>>>>Checking Delegates>>>>>")
         print("collection selection: \(collectionSelection)")
         print("table selection: \(tableSelection)")
         if (collectionSelection == tableSelection) {
             print("Match")
+            correctAlert()
             UIView.transition(with: templeCollectionCell.templeCardView,
                               duration: 1.0,
                               options: .curveEaseInOut,
@@ -98,12 +138,16 @@ class TempleViewController: UIViewController {
                                 _ in
                                 self.cards.remove(at: indexPath.row)
                                 self.collectionView.deleteItems(at: [indexPath])
+                                self.correctGuesses += 1
+                                self.correctTotal.text = "\(self.correctGuesses)"
                                 self.collectionSelection = "collection"
                                 self.tableSelection = "table"
             })
             
         } else {
-            print("Keep Trying")
+            incorrectAlert()
+            incorrectGuesses += 1
+            incorrectTotal.text = "\(incorrectGuesses)"
         }
     }
     
@@ -138,8 +182,6 @@ extension TempleViewController : UICollectionViewDelegate, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let templeCollectionCell = (collectionView.cellForItem(at: indexPath) as? TempleCardCell) {
             collectionSelection = cards[indexPath.row].name
-            print(collectionSelection)
-//            print(templeCardCell)
             checkMatch(inCell: templeCollectionCell, at: indexPath)
         }
     }
@@ -201,3 +243,5 @@ extension TempleViewController: UITableViewDelegate {
 //        checkMatch(inCell: TempleCardCell, at: [indexPath])
     }
 }
+
+
