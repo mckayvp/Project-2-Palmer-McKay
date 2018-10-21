@@ -47,14 +47,13 @@ class TempleViewController: UIViewController {
     @IBOutlet weak var toggleViewBtnLabel: UIBarButtonItem!
     @IBOutlet weak var correctTotal: UILabel!
     @IBOutlet weak var incorrectTotal: UILabel!
-    @IBOutlet weak var scoreTotal: UILabel!
     @IBOutlet weak var barView: UIView!
     
     // MARK: - Actions
     
     @IBAction func resetGame(_ sender: UIButton) {
+        print("clicked reset")
         cards = originalDeck
-//        collectionView.reloadData()
         correctGuesses = 0
         incorrectGuesses = 0
         correctTotal.text = "\(correctGuesses)"
@@ -63,7 +62,6 @@ class TempleViewController: UIViewController {
     }
     
     @IBAction func toggleViewBtn(_ sender: UIBarButtonItem) {
-//        collectionView.reloadData()
         collectionView.layoutIfNeeded()
         
         if tableViewWidth.constant > 0 {
