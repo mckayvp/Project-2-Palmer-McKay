@@ -22,9 +22,9 @@ class TempleCardView: UIView {
     // MARK: - Computed Properties
     var centerFontSize       : CGFloat { return bounds.width * 0.10 }
     var centerImageMargin: CGFloat { return bounds.width * 0.01 }
-    var borderStrokeWidth : CGFloat { return 10.0 }
+    var borderStrokeWidth : CGFloat { return 9.0 }
     var borderMargin : CGFloat { return 1.0 }
-    var cornerRadius : CGFloat { return bounds.width * 0.2 }
+    var cornerRadius : CGFloat { return bounds.width * 0.1 }
     
     @IBInspectable var isStudyMode: Bool {
         get {
@@ -81,7 +81,7 @@ class TempleCardView: UIView {
         let square = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         let width = bounds.width 
         let height = bounds.height
-        let borderColor : UIColor = UIColor.lightGray
+        let borderColor : UIColor = UIColor.white
         
         _ = pushContext()
         borderColor.setStroke()

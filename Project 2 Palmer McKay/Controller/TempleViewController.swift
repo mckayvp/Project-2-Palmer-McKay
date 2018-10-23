@@ -16,25 +16,21 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
         static let TempleCellIdentifier = "TempleCardCell"
         static let TempleTableIdentifier = "TempleTableCell"
     }
-    
+
     private let alertCorrect = UIAlertController(title: "Correct :)", message: "Keep it up!", preferredStyle: .alert)
     private let alertIncorrect = UIAlertController(title: "Incorrect :(", message: "Try a different combination", preferredStyle: .alert)
     
     // MARK: - Properties
     private var cards = TempleDeck()
     private var originalDeck = TempleDeck()
-    
     private var correctGuesses = 0
     private var incorrectGuesses = 0
     private var collectionSelection = "collection"
     private var tableSelection = "table"
-    private var collectionRow = -1
-    private var tableRow = -1
     private var collectionPath: IndexPath = [-1, -1]
     private var tablePath: IndexPath = [-1, -1]
 
-    
-    
+    // MARK: - ViewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +38,6 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
         tableViewWidth.constant = appView.bounds.width / 4
         toggleViewBtnLabel.title = "Study"
         cards.shuffle()
-//        collectionView.backgroundColor = "lightGray"
     }
     
     // MARK: - Outlets
@@ -56,15 +51,17 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet weak var barView: UIView!
     
     // MARK: - Actions
-    
     @IBAction func resetGame(_ sender: UIButton) {
-        print("clicked reset")
         cards = originalDeck
         cards.shuffle()
         correctGuesses = 0
         incorrectGuesses = 0
         correctTotal.text = "\(correctGuesses)"
         incorrectTotal.text = "\(incorrectGuesses)"
+        collectionSelection = "collection"
+        tableSelection = "table"
+        collectionPath[1] = -1
+        tablePath[1] = -1
         animate()
     }
     
@@ -82,9 +79,7 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
             setGameMode(false)
             barView.isHidden = false
         }
-        
         animate()
-      
     }
     
     // MARK: - Helpers
@@ -100,78 +95,10 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
         })
     }
     
-    private func setGameMode(_ isStudyMode: Bool) {
-        for i in 0 ..< cards.count {
-            cards[i].isStudyMode = isStudyMode
-        }
-    }
-    
-    private func correctAlert() {
-        // create the alert
-        let alert = UIAlertController(title: "Correct!", message: "Keep it up!", preferredStyle: UIAlertController.Style.alert)
-        
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    private func incorrectAlert() {
-        // create the alert
-        let alert = UIAlertController(title: "Incorrect", message: "Try a different combination.", preferredStyle: UIAlertController.Style.alert)
-        
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    
-//    private func checkMatch(inCell templeCollectionCell: TempleCardCell, at indexPath: IndexPath) {
-//        print(">>>>>>Checking Delegates>>>>>")
-//        print("collection selection: \(collectionSelection)")
-//        print(collectionRow)
-//        print("table selection: \(tableSelection)")
-//        print(tableRow)
-//        if (collectionSelection == tableSelection) {
-//            print("Match")
-//            correctAlert()
-//            UIView.transition(with: templeCollectionCell.templeCardView,
-//                              duration: 1.0,
-//                              options: .curveEaseInOut,
-//                              animations: nil,
-//                              completion: {
-//                                _ in
-//                                self.cards.remove(at: indexPath.row)
-//                                self.collectionView.deleteItems(at: [indexPath])
-//                                self.correctGuesses += 1
-//                                self.correctTotal.text = "\(self.correctGuesses)"
-//                                self.collectionSelection = "collection"
-//                                self.tableSelection = "table"
-//            })
-//
-//        } else {
-//            incorrectAlert()
-//            incorrectGuesses += 1
-//            incorrectTotal.text = "\(incorrectGuesses)"
-//        }
-//    }
-    
     private func checkMatch(_ collectionPath: IndexPath, _ tablePath: IndexPath) {
-        print(">>>>>>Checking Delegates>>>>>")
-        print("collection selection: \(collectionSelection)")
-        print(collectionPath)
-        print(collectionRow)
-        print("table selection: \(tableSelection)")
-        print(tablePath)
-        print(tableRow)
-        
         if (collectionPath[1] >= 0 && tablePath[1] >= 0) {
             // There are selections in both the collection and table views, check for match
-            if (collectionSelection == tableSelection) { // Match!
-                print("Match")
+            if (collectionSelection == tableSelection) {
                 correctAlert()
                 UIView.transition(with: appView,
                                   duration: 1.0,
@@ -188,11 +115,9 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
                                     self.tableSelection = "table"
                                     self.collectionPath[1] = -1
                                     self.tablePath[1] = -1
-                                    print("Self.CollectionPath")
-                                    print(self.collectionPath)
                 })
                 
-            } else { // No Match!
+            } else {
                 incorrectAlert()
                 incorrectGuesses += 1
                 incorrectTotal.text = "\(incorrectGuesses)"
@@ -202,6 +127,28 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
                 self.collectionPath[1] = -1
                 self.tablePath[1] = -1
             }
+        }
+    }
+    
+    private func correctAlert() {
+        let alert = UIAlertController(title: "Correct!",
+                                      message: "Keep it up!",
+                                      preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func incorrectAlert() {
+        let alert = UIAlertController(title: "Incorrect",
+                                      message: "Try a different combination.",
+                                      preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func setGameMode(_ isStudyMode: Bool) {
+        for i in 0 ..< cards.count {
+            cards[i].isStudyMode = isStudyMode
         }
     }
     
@@ -223,27 +170,19 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cards.count
     }
+    
     // MARK: - Collection View Delegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let templeCollectionCell = (collectionView.cellForItem(at: indexPath) as? TempleCardCell) {
-            collectionSelection = cards[indexPath.row].name
-            print("***CollectionSelection***")
-            print(collectionSelection)
-            print(templeCollectionCell)
-            print(indexPath)
-            print(indexPath.row)
-            collectionPath = indexPath
-            print("row...")
-            print(collectionPath[1])
-            collectionRow = indexPath.row
-//            checkMatch(inCell: templeCollectionCell, at: indexPath)
-//            checkMatch(collectionPath, tablePath)
+        if (collectionView.cellForItem(at: indexPath) as? TempleCardCell) != nil {
             if !cards[indexPath.row].isStudyMode {
+                collectionSelection = cards[indexPath.row].name
+                collectionPath = indexPath
                 checkMatch(collectionPath, tablePath)
             }
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -265,8 +204,6 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
         cell.detailTextLabel?.text = cards[indexPath.row].region
         
         return cell
-        
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -275,32 +212,12 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     // MARK: - Table View Delegate
     
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-        tablePath = indexPath
-        tableRow = indexPath.row
-        
-        
-        //        if(tableView.cellForRow(at: <#T##IndexPath#>) as? TempleTableCell) != nil {
-        //            print("Table Selction")
-        //            print(cards[indexPath.row].name)
-        //        }
-        //        let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
-        tableSelection = cards[indexPath.row].name
-        print(tableSelection)
-        print(collectionSelection)
         if !cards[indexPath.row].isStudyMode {
+            tablePath = indexPath
+            tableSelection = cards[indexPath.row].name
             checkMatch(collectionPath, tablePath)
         }
-        
-//        if (tableSelection == collectionSelection) {
-//            tableView.performBatchUpdates({
-//                cards.remove(at: indexPath.row)
-//                tableView.deleteRows(at: [indexPath], with: .automatic)
-//            })
-//        }
-        //        checkMatch(inCell: TempleCardCell, at: [indexPath])
     }
 }
 
