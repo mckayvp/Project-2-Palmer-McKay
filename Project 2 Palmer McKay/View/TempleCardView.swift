@@ -24,7 +24,7 @@ class TempleCardView: UIView {
     var centerImageMargin: CGFloat { return bounds.width * 0.01 }
     var borderStrokeWidth : CGFloat { return 10.0 }
     var borderMargin : CGFloat { return 1.0 }
-//    var borderMargin : CGFloat { return bounds.width * 0.15 }
+    var cornerRadius : CGFloat { return bounds.width * 0.2 }
     
     @IBInspectable var isStudyMode: Bool {
         get {
@@ -64,12 +64,13 @@ class TempleCardView: UIView {
         
         if isStudyMode {
             drawTempleName()
-        } else {
-           // don't draw temple name
-        }
+        } 
     }
     
     private func drawBaseCard() {
+        let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        
+        roundedRect.addClip()
         _ = pushContext()
         UIColor.white.setFill()
         UIRectFill(bounds)
@@ -77,7 +78,7 @@ class TempleCardView: UIView {
     }
     
     private func drawTempleBorder() {
-        let square = UIBezierPath()
+        let square = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         let width = bounds.width 
         let height = bounds.height
         let borderColor : UIColor = UIColor.lightGray

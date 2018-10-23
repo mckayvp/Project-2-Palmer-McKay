@@ -42,6 +42,7 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
         tableViewWidth.constant = appView.bounds.width / 4
         toggleViewBtnLabel.title = "Study"
         cards.shuffle()
+//        collectionView.backgroundColor = "lightGray"
     }
     
     // MARK: - Outlets
@@ -237,7 +238,10 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
             print(collectionPath[1])
             collectionRow = indexPath.row
 //            checkMatch(inCell: templeCollectionCell, at: indexPath)
-            checkMatch(collectionPath, tablePath)
+//            checkMatch(collectionPath, tablePath)
+            if !cards[indexPath.row].isStudyMode {
+                checkMatch(collectionPath, tablePath)
+            }
         }
     }
     func collectionView(_ collectionView: UICollectionView,
@@ -286,7 +290,10 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
         tableSelection = cards[indexPath.row].name
         print(tableSelection)
         print(collectionSelection)
-        checkMatch(collectionPath, tablePath)
+        if !cards[indexPath.row].isStudyMode {
+            checkMatch(collectionPath, tablePath)
+        }
+        
 //        if (tableSelection == collectionSelection) {
 //            tableView.performBatchUpdates({
 //                cards.remove(at: indexPath.row)
