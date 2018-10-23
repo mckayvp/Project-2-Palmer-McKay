@@ -196,6 +196,7 @@
                         <outlet property="collectionView" destination="SzU-VB-xpC" id="L3t-c7-uLr"/>
                         <outlet property="correctTotal" destination="ShW-7a-HbI" id="f6t-dS-giq"/>
                         <outlet property="incorrectTotal" destination="cnz-KY-Xxu" id="0nn-ZX-jl0"/>
+                        <outlet property="tableView" destination="FKG-rc-aTF" id="RXA-9h-Vh4"/>
                         <outlet property="tableViewWidth" destination="427-ZK-9Jq" id="OW2-Mj-EWE"/>
                         <outlet property="toggleViewBtnLabel" destination="zle-Us-nnS" id="f3Y-Hq-RO2"/>
                     </connections>

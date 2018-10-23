@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TempleViewController: UIViewController {
+class TempleViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Constants
     
@@ -28,6 +28,10 @@ class TempleViewController: UIViewController {
     private var incorrectGuesses = 0
     private var collectionSelection = "collection"
     private var tableSelection = "table"
+    private var collectionRow = -1
+    private var tableRow = -1
+    private var collectionPath: IndexPath = [-1, -1]
+    private var tablePath: IndexPath = [-1, -1]
 
     
     
@@ -43,6 +47,7 @@ class TempleViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var appView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewWidth: NSLayoutConstraint!
     @IBOutlet weak var toggleViewBtnLabel: UIBarButtonItem!
     @IBOutlet weak var correctTotal: UILabel!
@@ -89,6 +94,7 @@ class TempleViewController: UIViewController {
                        animations: {
                         self.view.layoutIfNeeded()
                         self.collectionView.reloadData()
+                        self.tableView.reloadData()
         })
     }
     
@@ -121,41 +127,84 @@ class TempleViewController: UIViewController {
     }
     
     
-    private func checkMatch(inCell templeCollectionCell: TempleCardCell, at indexPath: IndexPath) {
+//    private func checkMatch(inCell templeCollectionCell: TempleCardCell, at indexPath: IndexPath) {
+//        print(">>>>>>Checking Delegates>>>>>")
+//        print("collection selection: \(collectionSelection)")
+//        print(collectionRow)
+//        print("table selection: \(tableSelection)")
+//        print(tableRow)
+//        if (collectionSelection == tableSelection) {
+//            print("Match")
+//            correctAlert()
+//            UIView.transition(with: templeCollectionCell.templeCardView,
+//                              duration: 1.0,
+//                              options: .curveEaseInOut,
+//                              animations: nil,
+//                              completion: {
+//                                _ in
+//                                self.cards.remove(at: indexPath.row)
+//                                self.collectionView.deleteItems(at: [indexPath])
+//                                self.correctGuesses += 1
+//                                self.correctTotal.text = "\(self.correctGuesses)"
+//                                self.collectionSelection = "collection"
+//                                self.tableSelection = "table"
+//            })
+//
+//        } else {
+//            incorrectAlert()
+//            incorrectGuesses += 1
+//            incorrectTotal.text = "\(incorrectGuesses)"
+//        }
+//    }
+    
+    private func checkMatch(_ collectionPath: IndexPath, _ tablePath: IndexPath) {
         print(">>>>>>Checking Delegates>>>>>")
         print("collection selection: \(collectionSelection)")
+        print(collectionPath)
+        print(collectionRow)
         print("table selection: \(tableSelection)")
-        if (collectionSelection == tableSelection) {
-            print("Match")
-            correctAlert()
-            UIView.transition(with: templeCollectionCell.templeCardView,
-                              duration: 1.0,
-                              options: .curveEaseInOut,
-                              animations: nil,
-                              completion: {
-                                _ in
-                                self.cards.remove(at: indexPath.row)
-                                self.collectionView.deleteItems(at: [indexPath])
-                                self.correctGuesses += 1
-                                self.correctTotal.text = "\(self.correctGuesses)"
-                                self.collectionSelection = "collection"
-                                self.tableSelection = "table"
-            })
-            
-        } else {
-            incorrectAlert()
-            incorrectGuesses += 1
-            incorrectTotal.text = "\(incorrectGuesses)"
+        print(tablePath)
+        print(tableRow)
+        
+        if (collectionPath[1] >= 0 && tablePath[1] >= 0) {
+            // There are selections in both the collection and table views, check for match
+            if (collectionSelection == tableSelection) { // Match!
+                print("Match")
+                correctAlert()
+                UIView.transition(with: appView,
+                                  duration: 1.0,
+                                  options: .curveEaseInOut,
+                                  animations: nil,
+                                  completion: {
+                                    _ in
+                                    self.cards.remove(at: self.collectionPath[1])
+                                    self.collectionView.deleteItems(at: [self.collectionPath])
+                                    self.tableView.deleteRows(at: [tablePath], with: .automatic)
+                                    self.correctGuesses += 1
+                                    self.correctTotal.text = "\(self.correctGuesses)"
+                                    self.collectionSelection = "collection"
+                                    self.tableSelection = "table"
+                                    self.collectionPath[1] = -1
+                                    self.tablePath[1] = -1
+                                    print("Self.CollectionPath")
+                                    print(self.collectionPath)
+                })
+                
+            } else { // No Match!
+                incorrectAlert()
+                incorrectGuesses += 1
+                incorrectTotal.text = "\(incorrectGuesses)"
+                tableView.deselectRow(at: tablePath, animated: true)
+                self.collectionSelection = "collection"
+                self.tableSelection = "table"
+                self.collectionPath[1] = -1
+                self.tablePath[1] = -1
+            }
         }
     }
     
+    // MARK: - Collection View Data Source
     
-}
-
-
-// MARK: - Collection View Data Source 
-
-extension TempleViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.TempleCellIdentifier,
@@ -172,33 +221,37 @@ extension TempleViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cards.count
     }
-}
-
-// MARK: - Collection View Delegate
-
-extension TempleViewController : UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    // MARK: - Collection View Delegate
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let templeCollectionCell = (collectionView.cellForItem(at: indexPath) as? TempleCardCell) {
             collectionSelection = cards[indexPath.row].name
-            checkMatch(inCell: templeCollectionCell, at: indexPath)
+            print("***CollectionSelection***")
+            print(collectionSelection)
+            print(templeCollectionCell)
+            print(indexPath)
+            print(indexPath.row)
+            collectionPath = indexPath
+            print("row...")
+            print(collectionPath[1])
+            collectionRow = indexPath.row
+//            checkMatch(inCell: templeCollectionCell, at: indexPath)
+            checkMatch(collectionPath, tablePath)
         }
     }
     func collectionView(_ collectionView: UICollectionView,
-                          layout collectionViewLayout: UICollectionViewLayout,
-                          sizeForItemAt indexPath: IndexPath) -> CGSize {
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let templeImage = UIImage(named: cards[indexPath.row].filename)
         let width = templeImage?.size.width
         let height = templeImage?.size.height
         let templeImageWidth = (width! / height!)  * 100.0
-
+        
         return CGSize(width: templeImageWidth, height: 100.0)
     }
-}
-
-
-// MARK: - Table View Data Source
-
-extension TempleViewController: UITableViewDataSource {
+    
+    // MARK: - Table View Data Source
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TempleTableIdentifier,
                                                  for: indexPath)
@@ -214,32 +267,43 @@ extension TempleViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cards.count
     }
+    
+    // MARK: - Table View Delegate
+    
 
-}
-
-// MARK: - Table View Delegate
-
-extension TempleViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-//        if(tableView.cellForRow(at: <#T##IndexPath#>) as? TempleTableCell) != nil {
-//            print("Table Selction")
-//            print(cards[indexPath.row].name)
-//        }
-//        let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
+//        tableView.deselectRow(at: indexPath, animated: true)
+        tablePath = indexPath
+        tableRow = indexPath.row
+        
+        
+        //        if(tableView.cellForRow(at: <#T##IndexPath#>) as? TempleTableCell) != nil {
+        //            print("Table Selction")
+        //            print(cards[indexPath.row].name)
+        //        }
+        //        let currentCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
         tableSelection = cards[indexPath.row].name
         print(tableSelection)
-        print("WORKS?")
         print(collectionSelection)
-        if (tableSelection == collectionSelection) {
-            tableView.performBatchUpdates({
-                cards.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-            })
-        }
-//        checkMatch(inCell: TempleCardCell, at: [indexPath])
+        checkMatch(collectionPath, tablePath)
+//        if (tableSelection == collectionSelection) {
+//            tableView.performBatchUpdates({
+//                cards.remove(at: indexPath.row)
+//                tableView.deleteRows(at: [indexPath], with: .automatic)
+//            })
+//        }
+        //        checkMatch(inCell: TempleCardCell, at: [indexPath])
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
