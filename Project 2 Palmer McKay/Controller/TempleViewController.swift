@@ -59,6 +59,7 @@ class TempleViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBAction func resetGame(_ sender: UIButton) {
         print("clicked reset")
         cards = originalDeck
+        cards.shuffle()
         correctGuesses = 0
         incorrectGuesses = 0
         correctTotal.text = "\(correctGuesses)"
