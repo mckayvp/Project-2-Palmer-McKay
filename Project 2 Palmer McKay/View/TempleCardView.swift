@@ -20,11 +20,10 @@ class TempleCardView: UIView {
     var card = TempleCard()
     
     // MARK: - Computed Properties
-    var cornerRadius: CGFloat { return bounds.width * 0.05 }
     var centerFontSize       : CGFloat { return bounds.width * 0.10 }
     var centerImageMargin: CGFloat { return bounds.width * 0.01 }
-    var borderStrokeWidth : CGFloat { return 5.0 }
-    var borderMargin : CGFloat { return 3.5 }
+    var borderStrokeWidth : CGFloat { return 10.0 }
+    var borderMargin : CGFloat { return 1.0 }
 //    var borderMargin : CGFloat { return bounds.width * 0.15 }
     
     @IBInspectable var isStudyMode: Bool {
@@ -71,9 +70,6 @@ class TempleCardView: UIView {
     }
     
     private func drawBaseCard() {
-        let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        
-        roundedRect.addClip()
         _ = pushContext()
         UIColor.white.setFill()
         UIRectFill(bounds)
@@ -82,19 +78,17 @@ class TempleCardView: UIView {
     
     private func drawTempleBorder() {
         let square = UIBezierPath()
-//        let width = bounds.width - 4
-        let width = bounds.width - (2.0 * borderMargin)
-        let height = bounds.height - 4
-//        let height = bounds.height - (2.0 * borderMargin)
+        let width = bounds.width 
+        let height = bounds.height
         let borderColor : UIColor = UIColor.lightGray
         
         _ = pushContext()
         borderColor.setStroke()
         square.lineWidth = borderStrokeWidth
-        square.move(to: CGPoint(x: borderMargin, y: centerImageMargin))
-        square.addLine(to: CGPoint(x: width, y: centerImageMargin))
+        square.move(to: CGPoint(x: 0, y: 0))
+        square.addLine(to: CGPoint(x: width, y: 0))
         square.addLine(to: CGPoint(x: width, y: height))
-        square.addLine(to: CGPoint(x: borderMargin, y: height))
+        square.addLine(to: CGPoint(x: 0, y: height))
         square.close()
         square.stroke()
         popContext()
@@ -107,8 +101,8 @@ class TempleCardView: UIView {
         
         let width = bounds.width - (2 * centerImageMargin)
         let height = bounds.height
-        let templeImageRect = CGRect(x: centerImageMargin,
-                                     y: (bounds.height - width) / 5,
+        let templeImageRect = CGRect(x: 0,
+                                     y: 0,
                                      width: width,
                                      height: height)
         
